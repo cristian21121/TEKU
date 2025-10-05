@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "LM997s4QDXo=",
+  "success": true,
+  "projectFilePath": "C:\\PROYECTOS\\TEKU\\Solution\\Domain\\Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Cristian\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}

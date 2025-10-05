@@ -1,0 +1,75 @@
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="card shadow-sm" style="width: 22rem;">
+    <div class="card-body">
+      <h3 class="card-title text-center mb-4">Iniciar sesión</h3>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Usuario -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Usuario</label>
+          <input
+            id="username"
+            type="text"
+            class="form-control"
+            formControlName="username"
+            placeholder="Ingrese su usuario"
+            autocomplete="username"
+            required
+          />
+          <div
+            class="text-danger small mt-1"
+            *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid"
+          >
+            El usuario es obligatorio.
+          </div>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <div class="input-group">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              formControlName="password"
+              placeholder="Ingrese su contraseña"
+              autocomplete="current-password"
+              required
+            />
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="showPassword = !showPassword"
+              tabindex="-1"
+            >
+              <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            </button>
+          </div>
+          <div
+            class="text-danger small mt-1"
+            *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+          >
+            La contraseña es obligatoria.
+          </div>
+        </div>
+
+        <!-- Botón -->
+        <div class="d-grid mt-4">
+          <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+            Entrar
+          </button>
+        </div>
+
+        <!-- Mensaje de error -->
+        <div
+          *ngIf="errorMessage"
+          class="alert alert-danger text-center py-2 mt-3 mb-0"
+          role="alert"
+        >
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

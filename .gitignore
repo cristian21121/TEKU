@@ -1,1 +1,2 @@
-.vs/
+# Ignorar archivos temporales de Visual Studio
+Solution/.vs/

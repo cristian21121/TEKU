@@ -27,7 +27,7 @@ Antes de comenzar, tener instalado:
 
 ### Clonar el repositorio
 ```bash
-git clone https://github.com/tuusuario/teku.git
+git clone https://github.com/cristian21121/teku.git
 cd teku
 
 > Configurar DefaultConnection en appsettings.json

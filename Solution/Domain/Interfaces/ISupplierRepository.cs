@@ -9,5 +9,7 @@ namespace Domain.Interfaces
         public void Create(Supplier supplier);
 
         public List<Supplier> GetList();
+
+        public void Update(Supplier supplier);
     }
 }

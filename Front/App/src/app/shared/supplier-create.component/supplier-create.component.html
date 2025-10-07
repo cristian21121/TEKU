@@ -1,0 +1,134 @@
+<h2 mat-dialog-title>Hola desde el modal!</h2>
+
+<mat-dialog-content class="dialog-scroll-content">
+
+  <mat-card class="p-3 mt-3">
+    <h2>Registrar Proveedor</h2>
+
+    <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <mat-form-field class="w-100">
+            <mat-label>NIT</mat-label>
+            <input matInput type="number" formControlName="nit" required>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="w-100">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name" required>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="w-100">
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="email" type="email" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Servicios -->
+      <div class="mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h4>Servicios ofrecidos</h4>
+          <button mat-mini-fab color="primary" type="button" (click)="addService()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+        <div formArrayName="services">
+          <div *ngFor="let s of services.controls; let i=index" [formGroupName]="i" class="border rounded p-3 mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <h6>Servicio {{ i + 1 }}</h6>
+              <button mat-icon-button color="warn" type="button" (click)="removeService(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+
+            <mat-form-field class="w-100">
+              <mat-label>Nombre del servicio</mat-label>
+              <input matInput formControlName="name" required>
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>Valor por hora</mat-label>
+              <input matInput type="number" formControlName="hourValue" required>
+            </mat-form-field>
+
+            <!-- Países -->
+            <div class="mt-2">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <h6>Países</h6>
+                <button mat-mini-fab color="primary" type="button" (click)="addCountry(i)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+
+              <div formArrayName="countries">
+                <div *ngFor="let c of getCountriesSupplier(i).controls; let j=index" [formGroupName]="j"
+                  class="p-2 border rounded mb-2">
+                  <div class="row g-2 align-items-center">
+
+                    <div class="col-md-5">
+                      <mat-form-field class="w-100">
+                        <mat-label>Paises</mat-label>
+                        <mat-select formControlName="code" required>
+                          @for (country of countries; track country) {
+                          <mat-option [value]="country.code">{{country.name}}</mat-option>
+                          }
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <button mat-icon-button color="warn" type="button" (click)="removeCountry(i, j)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campos personalizados -->
+      <div class="mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h4>Campos personalizados</h4>
+          <button mat-mini-fab color="primary" type="button" (click)="addCustomField()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+        <div formArrayName="customFields">
+          <div *ngFor="let f of customFields.controls; let k=index" [formGroupName]="k" class="border rounded p-3 mb-2">
+            <div class="d-flex justify-content-between align-items-center">
+              <h6>Campo {{ k + 1 }}</h6>
+              <button mat-icon-button color="warn" type="button" (click)="removeCustomField(k)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <mat-form-field class="w-100">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+            <mat-form-field class="w-100">
+              <mat-label>Valor</mat-label>
+              <input matInput formControlName="value">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-end mt-4">
+        <button mat-raised-button color="primary" type="submit">Guardar Proveedor</button>
+      </div>
+    </form>
+  </mat-card>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cerrar</button>
+</mat-dialog-actions>

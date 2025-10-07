@@ -10,5 +10,8 @@ namespace Domain.Models
         public required String Code { get; set; }
 
         public required String Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonIgnore]
+        public List<Service> Services { get; set; } = new();
     }
 }

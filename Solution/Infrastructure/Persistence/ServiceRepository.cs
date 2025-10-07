@@ -21,7 +21,7 @@ namespace Infrastructure.Persistence
 
         public List<Service> GetList()
         {
-            return dbContext.SERVICE.Include(s => s.Countries).ToList();
+            return dbContext.SERVICE.Include(s => s.Countries).AsNoTracking().ToList();
         }
 
         public void Update(Service service)

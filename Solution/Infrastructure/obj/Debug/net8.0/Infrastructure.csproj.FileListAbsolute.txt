@@ -32,3 +32,4 @@ C:\PROYECTOS\TEKU\Solution\Infrastructure\obj\Debug\net8.0\refint\Infrastructure
 C:\PROYECTOS\TEKU\Solution\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
 C:\PROYECTOS\TEKU\Solution\Infrastructure\obj\Debug\net8.0\Infrastructure.genruntimeconfig.cache
 C:\PROYECTOS\TEKU\Solution\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
+C:\PROYECTOS\TEKU\Solution\Infrastructure\obj\Debug\net8.0\Infrastructure.sourcelink.json

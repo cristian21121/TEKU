@@ -14,5 +14,27 @@ namespace Infrastructure
         public DbSet<CustomField> CUSTOM_FIELD { get; set; }
 
         public DbSet<Country> COUNTRY { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Country>()
+                .HasIndex(c => c.Code)
+                .IsUnique();
+
+            modelBuilder.Entity<Service>()
+            .HasMany(s => s.Countries)
+            .WithMany(c => c.Services)
+            .UsingEntity<Dictionary<string, object>>(
+            "ServiceCountry",
+            j => j.HasOne<Country>().WithMany().HasForeignKey("CountryId").OnDelete(DeleteBehavior.Restrict),
+            j => j.HasOne<Service>().WithMany().HasForeignKey("ServiceId").OnDelete(DeleteBehavior.Restrict),
+            j =>
+            {
+                j.HasKey("ServiceId", "CountryId");
+                j.ToTable("ServiceCountries");
+            });
+        }
     }
 }

@@ -1,1 +1,74 @@
-<p>supplier.component works!</p>
+<div class="container card mt-4 p-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Administración de Proveedores y Servicios</h3>
+    <button mat-raised-button color="primary" (click)="showModalCreateSupplier()">
+      <mat-icon>add</mat-icon> Crear proveedor
+    </button>
+  </div>
+
+  <mat-form-field appearance="outline" class="w-100 mb-3">
+    <mat-label>Buscar proveedor</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Nombre, Nit, Correo..." />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Proveedor</th>
+      <td mat-cell *matCellDef="let s">{{ s.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>NIT</th>
+      <td mat-cell *matCellDef="let s">{{ s.nit }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="correo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+      <td mat-cell *matCellDef="let s">{{ s.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="servicios">
+      <th mat-header-cell *matHeaderCellDef>Servicios</th>
+      <td mat-cell *matCellDef="let s">
+        <div *ngIf="s.services?.length; else noServices">
+          <div *ngFor="let srv of s.services" class="mb-2">
+            <strong>{{ srv.name }}</strong> — Valor/hora: {{ srv.hourValue }}
+            <div *ngIf="srv.countries?.length">
+              <small>Países: {{ getCountriesName(srv.countries) }}</small>
+            </div>
+          </div>
+        </div>
+        <ng-template #noServices><em>Sin servicios registrados</em></ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="campos">
+      <th mat-header-cell *matHeaderCellDef>Campos personalizados</th>
+      <td mat-cell *matCellDef="let s">
+        <div *ngIf="s.customFields?.length; else noCustomFields">
+          <ul class="mb-0">
+            <li *ngFor="let cf of s.customFields">
+              <strong>{{ cf.name }}:</strong> {{ cf.value }}
+            </li>
+          </ul>
+        </div>
+        <ng-template #noCustomFields><em>Sin campos personalizados</em></ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef class="text-center">Acciones</th>
+      <td mat-cell *matCellDef="let s" class="text-center">
+        <button mat-icon-button color="accent" (click)="editSupplier(s)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+</div>

@@ -4,6 +4,8 @@ namespace Domain.Interfaces
 {
     public interface ICountryRepository
     {
+        public List<Country> GetCreatedList();
+
         public List<Country> GetList();
         
         public Country GetByCode(String code);

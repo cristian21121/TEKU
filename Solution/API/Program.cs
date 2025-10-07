@@ -23,6 +23,9 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<ISupplierService, SupplierService>();
 builder.Services.AddScoped<ICustomFieldService, CustomFieldService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<ICountrySupplierReportService, CountrySupplierReportService>();
+builder.Services.AddScoped<ICountryServiceReportService, CountryServiceReportService>();
 
 //Repositories
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();

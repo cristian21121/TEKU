@@ -11,15 +11,18 @@ namespace Application.Services
         private readonly IValidator<Supplier> validator;
         private readonly ISupplierRepository supplierRepository;
         private readonly ICountryRepository countryRepository;
+        private readonly ICountryService countryService;
 
         public SupplierService(
             IValidator<Supplier> validator, 
             ISupplierRepository supplierRepository,
-            ICountryRepository countryRepository)
+            ICountryRepository countryRepository,
+            ICountryService countryService)
         {
             this.validator = validator;
             this.supplierRepository = supplierRepository;
             this.countryRepository = countryRepository;
+            this.countryService = countryService;
         }
 
         public void Create(Supplier supplier)
@@ -35,14 +38,32 @@ namespace Application.Services
                     countries.AddRange(service.Countries);
                 });
 
-                countries = countryRepository.CreateList(countries);
+                countries = countryService.CreateList(countries);
+
+                supplierRepository.Create(supplier);
+            }
+            else
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+        }
+
+        public void Update(Supplier supplier)
+        {
+            ValidationResult validationResult = validator.Validate(supplier);
+
+            if (validationResult.IsValid)
+            {
+                List<Country> countries = new();
 
                 supplier.Services.ForEach(service =>
                 {
-                    service.Countries.ForEach(country => country = countries.First(c => c.Code == country.Code));
+                    countries.AddRange(service.Countries);
                 });
 
-                supplierRepository.Create(supplier);
+                countries = countryService.CreateList(countries);
+
+                supplierRepository.Update(supplier);
             }
             else
             {

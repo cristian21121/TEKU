@@ -8,5 +8,10 @@ export const routes: Routes = [
     {
         path: 'shared',
         loadChildren: () => import('./shared/routes').then(m => m.AUTH_ROUTES)
+    },
+    {
+        path: '**',
+        redirectTo: 'auth/login',
+        pathMatch: 'full'
     }
 ];

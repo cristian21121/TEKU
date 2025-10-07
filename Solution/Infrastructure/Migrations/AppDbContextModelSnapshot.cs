@@ -31,20 +31,18 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ServiceId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceId");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
-                    b.ToTable("Country");
+                    b.ToTable("COUNTRY");
                 });
 
             modelBuilder.Entity("Domain.Models.CustomField", b =>
@@ -122,11 +120,19 @@ namespace Infrastructure.Migrations
                     b.ToTable("SUPPLIER");
                 });
 
-            modelBuilder.Entity("Domain.Models.Country", b =>
+            modelBuilder.Entity("ServiceCountry", b =>
                 {
-                    b.HasOne("Domain.Models.Service", null)
-                        .WithMany("Countries")
-                        .HasForeignKey("ServiceId");
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ServiceId", "CountryId");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("ServiceCountries", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.CustomField", b =>
@@ -147,9 +153,19 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Models.Service", b =>
+            modelBuilder.Entity("ServiceCountry", b =>
                 {
-                    b.Navigation("Countries");
+                    b.HasOne("Domain.Models.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Service", null)
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Models.Supplier", b =>

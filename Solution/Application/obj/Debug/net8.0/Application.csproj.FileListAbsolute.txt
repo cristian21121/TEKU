@@ -28,3 +28,4 @@ C:\PROYECTOS\TEKU\Solution\Application\obj\Debug\net8.0\Application.dll
 C:\PROYECTOS\TEKU\Solution\Application\obj\Debug\net8.0\refint\Application.dll
 C:\PROYECTOS\TEKU\Solution\Application\obj\Debug\net8.0\Application.pdb
 C:\PROYECTOS\TEKU\Solution\Application\obj\Debug\net8.0\ref\Application.dll
+C:\PROYECTOS\TEKU\Solution\Application\obj\Debug\net8.0\Application.sourcelink.json

@@ -18,26 +18,27 @@ namespace API.Controllers.Capture
             this.supplierRepository = supplierRepository;
         }
 
+        [HttpGet]
+        [Route("List")]
+        public IActionResult GetList()
+        {
+            return Ok(supplierRepository.GetList());
+        }
+
         [HttpPost]
-        [Route("Create")]
+        [Route("")]
         public IActionResult Create(Supplier supplier)
         {
             supplierService.Create(supplier);
             return Ok();
         }
 
-        //[HttpGet]
-        //[Route("")]
-        //public IActionResult Get(Int32 id)
-        //{
-        //    return Ok(supplierRepository.Get(id));
-        //}
-
-        [HttpGet]
-        [Route("List")]
-        public IActionResult GetList()
+        [HttpPut]
+        [Route("")]
+        public IActionResult Update(Supplier supplier)
         {
-            return Ok(supplierRepository.GetList());
+            supplierService.Update(supplier);
+            return Ok();
         }
     }
 }

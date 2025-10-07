@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
 using Infrastructure.Providers;
+using Microsoft.EntityFrameworkCore;
 using RestSharp;
 
 namespace Infrastructure.Persistence
@@ -14,7 +15,6 @@ namespace Infrastructure.Persistence
         {
             this.dbContext = dbContext;
         }
-
 
         public List<Country> GetList()
         {
@@ -31,6 +31,11 @@ namespace Infrastructure.Persistence
             dbContext.COUNTRY.AddRange(countries);
             dbContext.SaveChanges();
             return countries;
+        }
+
+        public List<Country> GetCreatedList()
+        {
+            return dbContext.COUNTRY.ToList();
         }
     }
 }

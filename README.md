@@ -1,6 +1,6 @@
 # Teku
 
-> Prueba tecnica Teku, gention de proveedores y servicios.
+> Prueba técnica Teku, generación de proveedores y servicios.
 
 ---
 
